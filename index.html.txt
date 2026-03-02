@@ -1,0 +1,362 @@
+﻿import React, { useState } from 'react';
+import {
+  Settings,
+  Cpu,
+  Activity,
+  Zap,
+  UserCheck,
+  ShieldCheck,
+  Mail,
+  Phone,
+  MapPin,
+  ChevronRight,
+  Menu,
+  X,
+  Factory,
+  Truck,
+  Lightbulb
+} from 'lucide-react';
+
+
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+  // --- Datos de la Empresa ---
+  const empresa = {
+    nombre: "ELECTRO-TECH INDUSTRIAL",
+    eslogan: "Excelencia técnica para la continuidad de su producción",
+    email: "proyectos@electrotech-industrial.es",
+    telefono: "+34 600 000 000",
+    ubicación: "Polígono Industrial " + "Sector Sur, Valencia"
+  };
+
+
+  const servicios = [
+    {
+      id: 1,
+      icon: <Activity className="w-8 h-8 text-blue-600" />,
+      titulo: "Mantenimiento Preventivo Industrial",
+      desc: "Protocolos programados de revisión y limpieza de sistemas electrónicos de control.",
+      problema: "Evita paradas no planificadas de maquinaria críticas por fallos en componentes desgastados.",
+      cliente: "Grandes factorías y plantas de producción continua."
+    },
+    {
+      id: 2,
+      icon: <Cpu className="w-8 h-8 text-blue-600" />,
+      titulo: "Reparación de Placas Electrónicas",
+      desc: "Intervención a nivel de componente (SMD/THT) en PCB dañadas por sobretensiones o fatiga.",
+      problema: "Resuelve la obsolescencia de componentes cuando el fabricante ya no ofrece repuestos.",
+      cliente: "Talleres mecánicos y departamentos de mantenimiento interno."
+    },
+    {
+      id: 3,
+      icon: <Settings className="w-8 h-8 text-blue-600" />,
+      titulo: "Automatización con PLC",
+      desc: "Programación y ajuste de controladores lógicos programables para optimización de procesos.",
+      problema: "Corrige ineficiencias en la lógica de producción o errores de sincronización.",
+      cliente: "Industria alimentaria y logística automatizada."
+    },
+    {
+      id: 4,
+      icon: <Zap className="w-8 h-8 text-blue-600" />,
+      titulo: "Asistencia Técnica Urgente",
+      desc: "Diagnóstico in situ de averías electrónicas críticas con instrumentación avanzada.",
+      problema: "Minimiza el tiempo de inactividad técnica (downtime) ante fallos inesperados.",
+      cliente: "Empresas con alta dependencia tecnológica en sus líneas."
+    }
+  ];
+
+
+  const sectores = [
+    { nombre: "Industria Alimentaria", reto: "Higiene y alta cadencia de envasado." },
+    { nombre: "Automoción", reto: "Sistemas robotizados de alta precisión." },
+    { nombre: "Logística", reto: "Sistemas de clasificación y cintas inteligentes." },
+    { nombre: "Energía", reto: "Monitoreo de redes y convertidores de potencia." }
+  ];
+
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      {/* Navigation */}
+      <nav className="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-20 items-center">
+            <div className="flex items-center gap-2">
+              <div className="bg-blue-600 p-2 rounded-lg">
+                <Settings className="text-white w-6 h-6" />
+              </div>
+              <span className="text-xl font-bold tracking-tight text-slate-800">{empresa.nombre}</span>
+            </div>
+           
+            {/* Desktop Nav */}
+            <div className="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wide">
+              {['Inicio', 'Servicios', 'Sobre Nosotros', 'Sectores', 'Contacto'].map((item) => (
+                <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="hover:text-blue-600 transition-colors">
+                  {item}
+                </a>
+              ))}
+            </div>
+
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? <X /> : <Menu />}
+              </button>
+            </div>
+          </div>
+        </div>
+       
+        {/* Mobile Nav */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t p-4 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
+            {['Inicio', 'Servicios', 'Sobre Nosotros', 'Sectores', 'Contacto'].map((item) => (
+              <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>
+                {item}
+              </a>
+            ))}
+          </div>
+        )}
+      </nav>
+
+
+      {/* Hero Section (INICIO) */}
+      <section id="inicio" className="pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 text-white">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <div className="lg:w-1/2 space-y-6">
+            <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight">
+              {empresa.eslogan}
+            </h1>
+            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
+              Somos una microempresa especializada en la consultoría y reparación técnica de sistemas electrónicos industriales.
+              Nos dirigimos a plantas de fabricación que requieren alta fiabilidad en sus sistemas de control y automatización.
+              Nuestra diferencia radica en la especialización a nivel de componente y la respuesta ágil, garantizando que su
+              maquinaria nunca sea un cuello de botella para su negocio.
+            </p>
+            <div className="pt-4">
+              <a href="#contacto" className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full font-bold transition-all inline-block">
+                Solicitar Diagnóstico
+              </a>
+            </div>
+          </div>
+          <div className="lg:w-1/2 relative">
+            <div className="bg-blue-500/20 absolute -inset-4 blur-3xl rounded-full"></div>
+            <div className="relative border border-slate-700 rounded-2xl overflow-hidden shadow-2xl">
+                <svg viewBox="0 0 800 500" className="w-full bg-slate-900">
+                  <rect width="800" height="500" fill="#0f172a" />
+                  <path d="M100 250 L200 250 L220 180 L250 320 L280 250 L400 250" stroke="#3b82f6" strokeWidth="4" fill="none" opacity="0.8">
+                    <animate attributeName="stroke-dasharray" from="0,1000" to="1000,0" dur="2s" repeatCount="indefinite" />
+                  </path>
+                  <circle cx="450" cy="250" r="40" stroke="#3b82f6" strokeWidth="2" fill="none" />
+                  <rect x="550" y="200" width="100" height="100" stroke="#1e40af" strokeWidth="2" fill="none" />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                   <span className="text-slate-400 text-xs italic">Simulación de Señal de Osciloscopio Industrial</span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* SERVICIOS */}
+      <section id="servicios" className="py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-slate-800">Servicios Especializados</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {servicios.map((s) => (
+              <div key={s.id} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
+                <div className="mb-6 group-hover:scale-110 transition-transform">{s.icon}</div>
+                <h3 className="text-xl font-bold mb-4 text-slate-800">{s.titulo}</h3>
+                <p className="text-slate-600 text-sm mb-4 leading-relaxed">{s.desc}</p>
+                <div className="space-y-2 border-t pt-4">
+                  <p className="text-xs font-semibold text-blue-700 uppercase">Solución:</p>
+                  <p className="text-xs text-slate-500 italic">{s.problema}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* SOBRE NOSOTROS */}
+      <section id="sobre-nosotros" className="py-24 px-4 bg-slate-100">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
+          <div className="lg:w-1/2">
+            <h2 className="text-3xl font-bold mb-6 text-slate-800">Perfil Profesional</h2>
+            <div className="bg-blue-600 w-16 h-1 mb-8"></div>
+            <p className="text-lg text-slate-700 mb-6 italic leading-relaxed">
+              "Técnico Superior en Mantenimiento Electrónico apasionado por la eficiencia operativa y la resolución de problemas complejos."
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-white rounded-lg shadow-sm"><UserCheck className="text-blue-600" /></div>
+                <div>
+                  <h4 className="font-bold">Formación</h4>
+                  <p className="text-sm text-slate-600">Ciclo Formativo de Grado Superior en Mantenimiento Electrónico.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-white rounded-lg shadow-sm"><Lightbulb className="text-blue-600" /></div>
+                <div>
+                  <h4 className="font-bold">Especialización</h4>
+                  <p className="text-sm text-slate-600">Diagnóstico de sistemas embebidos e instrumentación industrial.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-1/2 grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600">
+              <h4 className="font-bold mb-4 text-blue-700">Competencias Técnicas</h4>
+              <ul className="text-sm space-y-2 text-slate-600">
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Interpretación de esquemas</li>
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Manejo de Osciloscopio/Multímetro</li>
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Soldadura avanzada SMD</li>
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Programación de PLC</li>
+              </ul>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-slate-800">
+              <h4 className="font-bold mb-4 text-slate-800">Competencias Personales</h4>
+              <ul className="text-sm space-y-2 text-slate-600">
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Resolución de problemas</li>
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Responsabilidad absoluta</li>
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Comunicación técnica clara</li>
+                <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4" /> Organización meticulosa</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* CLIENTES Y SECTORES */}
+      <section id="sectores" className="py-24 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-slate-800">Sectores y Clientes</h2>
+            <p className="text-slate-500 mt-2">Apoyamos a la industria en su transformación digital y operativa.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sectores.map((s, idx) => (
+              <div key={idx} className="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-blue-600">
+                  <Factory className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{s.nombre}</h3>
+                <p className="text-sm text-slate-600 mb-4">{s.reto}</p>
+                <p className="text-xs text-blue-600 font-medium">Contratación por: Fiabilidad técnica</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 bg-blue-900 text-white p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-lg">¿Su empresa pertenece a otro sector industrial? Ofrecemos soluciones a medida.</p>
+            <a href="#contacto" className="bg-white text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition-colors">Consultar Adaptabilidad</a>
+          </div>
+        </div>
+      </section>
+
+
+      {/* COMPROMISO PROFESIONAL */}
+      <section className="py-24 px-4 bg-slate-900 text-white">
+        <div className="max-w-5xl mx-auto text-center">
+          <ShieldCheck className="w-16 h-16 text-blue-500 mx-auto mb-8" />
+          <h2 className="text-3xl font-bold mb-8">Valores y Compromiso</h2>
+          <div className="grid md:grid-cols-2 gap-12 text-left">
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-blue-400">Calidad y Seguridad</h4>
+              <p className="text-slate-400 leading-relaxed">
+                Cada intervención sigue estrictos protocolos de seguridad eléctrica y normativa industrial.
+                Garantizamos la trazabilidad de los componentes sustituidos y ofrecemos informes técnicos detallados tras cada reparación.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-blue-400">Formación Continua</h4>
+              <p className="text-slate-400 leading-relaxed">
+                El sector electrónico evoluciona cada día. Mi compromiso incluye la actualización constante en:
+              </p>
+              <ul className="text-sm text-slate-300 grid grid-cols-2 gap-2 italic">
+                <li>• Certificación IPC-7711/21</li>
+                <li>• Programación PLC Avanzada</li>
+                <li>• Ciberseguridad Industrial</li>
+                <li>• Electrónica de Potencia</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* CONTACTO */}
+      <section id="contacto" className="py-24 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-800">Contacto Directo</h2>
+                <p className="text-slate-600 mt-4">¿Sufre una avería o desea un plan de mantenimiento? Hablemos.</p>
+              </div>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="bg-blue-100 p-3 rounded-full text-blue-600"><Mail /></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Email</p>
+                    <p className="text-slate-800 font-medium">{empresa.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="bg-blue-100 p-3 rounded-full text-blue-600"><Phone /></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Teléfono</p>
+                    <p className="text-slate-800 font-medium">{empresa.telefono}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="bg-blue-100 p-3 rounded-full text-blue-600"><MapPin /></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Ubicación</p>
+                    <p className="text-slate-800 font-medium">{empresa.ubicación}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-slate-50 p-8 rounded-2xl shadow-sm border border-slate-200">
+              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <input type="text" placeholder="Nombre" className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none" />
+                  <input type="email" placeholder="Email" className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none" />
+                </div>
+                <input type="text" placeholder="Empresa / Sector" className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none" />
+                <textarea placeholder="Descripción del problema técnico" rows="4" className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none"></textarea>
+                <button className="w-full bg-slate-900 text-white py-4 rounded-lg font-bold hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm">Enviar Solicitud</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-slate-500 py-12 px-4 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Settings className="w-5 h-5" />
+            <span className="font-bold text-white tracking-tight">{empresa.nombre}</span>
+          </div>
+          <p className="text-sm">© 2024 Itinerario Personal para la Empleabilidad I. Todos los derechos reservados.</p>
+          <div className="flex gap-4">
+             <span className="text-xs bg-slate-800 px-3 py-1 rounded text-slate-300">ISO 9001 (Simulado)</span>
+             <span className="text-xs bg-slate-800 px-3 py-1 rounded text-slate-300">Técnico Certificado</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+
+export default App;
